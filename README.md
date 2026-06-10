@@ -32,8 +32,6 @@ medSearch is a biomedical information retrieval (IR) system designed for searchi
 
 The project explores how biomedical entity extraction, query expansion, and advanced retrieval models can improve the discovery of relevant medical literature for respiratory diseases such as asthma, COPD, pulmonary fibrosis, pneumonia, and chronic bronchitis.
 
-**Note:** This project is intended for biomedical literature retrieval and research purposes only. It is not designed to provide medical advice, diagnosis, or treatment recommendations.
-
 ---
 
 ## Features
