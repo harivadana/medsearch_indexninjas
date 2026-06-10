@@ -26,10 +26,6 @@ Built using TF-IDF, Inverted Indexing, Cosine Similarity, and Biomedical NLP
 
 </p>
 
-# Biomedical Information Retrieval System for Respiratory Disease Literature
-
-**Biomedical Literature Search Engine Using TF-IDF, BM25, Query Expansion, Inverted Indexing, Cosine Similarity, and Biomedical NLP**
-
 ## Overview
 
 medSearch is a biomedical information retrieval (IR) system designed for searching and retrieving respiratory disease literature from PubMed abstracts. The system enables symptom-oriented and concept-based search using classical information retrieval techniques enhanced with biomedical natural language processing.
