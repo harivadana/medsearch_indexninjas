@@ -26,177 +26,386 @@ Built using TF-IDF, Inverted Indexing, Cosine Similarity, and Biomedical NLP
 
 </p>
 
----
-# medSearch
+# Biomedical Information Retrieval System for Respiratory Disease Literature
 
-medSearch is a biomedical information retrieval (IR) system focused on respiratory disease literature. The project builds a searchable corpus from PubMed abstracts and supports symptom-based querying using classical information retrieval techniques such as inverted indexes, TF-IDF weighting, cosine similarity retrieval, and biomedical entity extraction using scispaCy.
+**Biomedical Literature Search Engine Using TF-IDF, BM25, Query Expansion, Inverted Indexing, Cosine Similarity, and Biomedical NLP**
 
----
+## Overview
 
-# Features
+medSearch is a biomedical information retrieval (IR) system designed for searching and retrieving respiratory disease literature from PubMed abstracts. The system enables symptom-oriented and concept-based search using classical information retrieval techniques enhanced with biomedical natural language processing.
 
-- PubMed biomedical corpus construction
-- Respiratory disease literature retrieval
-- NLTK-based preprocessing and stop-word removal
-- Biomedical entity extraction using scispaCy
-- Inverted index generation
-- TF-IDF vector weighting
-- Cosine similarity ranking
-- Query-based medical document retrieval
-- Retrieval evaluation using Precision, MAP, and NDCG
+The project explores how biomedical entity extraction, query expansion, and advanced retrieval models can improve the discovery of relevant medical literature for respiratory diseases such as asthma, COPD, pulmonary fibrosis, pneumonia, and chronic bronchitis.
+
+**Note:** This project is intended for biomedical literature retrieval and research purposes only. It is not designed to provide medical advice, diagnosis, or treatment recommendations.
 
 ---
 
-# Project Structure
+## Features
 
-text medSearch/ ├── data/ │   ├── raw/ │   └── processed/ ├── tests/ ├── build_index.py ├── download_documents.py ├── preprocessing.py ├── search.py ├── evaluate_retrieval.py ├── compute_metrics.py ├── requirements.txt └── README.md 
-
----
-
-# Installation
-
-## 1. Clone Repository
-
-bash git clone https://github.com/harivadana/medsearch_indexninjas cd medSearch_indexninjas 
-
----
-
-## 2. Create Virtual Environment
-
-### Mac/Linux
-
-bash python3 -m venv venv source venv/bin/activate 
-
-### Windows
-
-bash python -m venv venv venv\Scripts\activate 
+* PubMed biomedical corpus construction
+* Respiratory disease literature retrieval
+* NLTK-based preprocessing and normalization
+* Biomedical entity extraction using scispaCy
+* Inverted index generation
+* TF-IDF document weighting
+* Cosine similarity ranking
+* BM25 retrieval model
+* Query expansion for improved recall
+* Symptom-based medical document search
+* Retrieval evaluation using Precision, MAP, and NDCG
+* PubMedBERT-assisted semantic evaluation
+* Biomedical NLP pipeline for concept preservation
 
 ---
 
-## 3. Upgrade pip
+## Dataset
 
-bash python3 -m pip install --upgrade pip setuptools wheel 
+**Source:** PubMed
 
----
+**Domain:** Respiratory Diseases
 
-## 4. Install Biomedical NLP Model
+Example topics include:
 
-bash python3 -m pip install \ https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.5/en_core_sci_sm-0.5.5-py3-none-any.whl 
+* Asthma
+* Chronic Obstructive Pulmonary Disease (COPD)
+* Pulmonary Fibrosis
+* Pneumonia
+* Chronic Bronchitis
+* Respiratory Infections
+* Lung Inflammation
+* Shortness of Breath Disorders
 
----
+**Document Type:**
 
-## 5. Install Dependencies
-
-bash python3 -m pip install -r requirements.txt 
-
----
-
-# Building the Biomedical Corpus
-
-Run the PubMed downloader:
-
-bash python3 download_documents.py 
-
-This downloads respiratory disease abstracts and metadata into:
-
-text data/raw/respiratory_corpus.json 
+* PubMed abstracts
+* Article metadata
+* Biomedical literature records
 
 ---
 
-# Building the Inverted Index
+## Installation
 
-Inside build_index.py:
+### 1. Clone Repository
 
-python USE_BIOMEDICAL_ENTITIES = True 
+```bash
+git clone https://github.com/harivadana/medsearch_indexninjas.git
+cd medsearch_indexninjas
+```
 
-Then run:
+### 2. Create Virtual Environment
 
-bash python3 build_index.py 
+#### Mac/Linux
 
-This generates:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
 
-text data/processed/ ├── inverted_index.json ├── idf.json ├── doc_metadata.json └── doc_lengths.json 
+#### Windows
+
+```bash
+python -m venv venv
+venv\Scripts\activate
+```
+
+### 3. Upgrade pip
+
+```bash
+python -m pip install --upgrade pip setuptools wheel
+```
+
+### 4. Install scispaCy Biomedical Model
+
+```bash
+python -m pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.5/en_core_sci_sm-0.5.5-py3-none-any.whl
+```
+
+### 5. Install Dependencies
+
+```bash
+python -m pip install -r requirements.txt
+```
 
 ---
 
-# Running the Search Engine
+## Building the Biomedical Corpus
+
+Download respiratory disease literature from PubMed:
+
+```bash
+python download_documents.py
+```
+
+Output:
+
+```text
+data/raw/respiratory_corpus.json
+```
+
+---
+
+## Building the Inverted Index
+
+Configure indexing options inside:
+
+```python
+USE_BIOMEDICAL_ENTITIES = True
+```
+
+Then build the index:
+
+```bash
+python build_index.py
+```
+
+Generated files:
+
+```text
+data/processed/
+├── inverted_index.json
+├── idf.json
+├── doc_metadata.json
+└── doc_lengths.json
+```
+
+---
+
+## Retrieval Models
+
+### TF-IDF + Cosine Similarity
+
+Classical vector-space retrieval model using term frequency and inverse document frequency weighting.
 
 Run:
 
-bash python3 search.py 
-
-Example queries:
-
-text shortness of breath 
-
-text persistent cough wheezing 
-
-text pulmonary fibrosis chest tightness 
+```bash
+python search.py
+```
 
 ---
 
-# Biomedical Entity Extraction
+### BM25 Retrieval
 
-The system optionally uses scispaCy biomedical entity extraction to preserve important medical phrases during indexing and querying.
-
-Example:
-
-text shortness of breath     -> ENTITY_shortness_breath  pulmonary fibrosis     -> ENTITY_pulmonary_fibrosis 
-
-This improves retrieval quality for multi-word medical concepts.
-
----
-
-# Retrieval Pipeline
-
-text PubMed Documents         ↓ Preprocessing         ↓ Tokenization         ↓ Stop-word Removal         ↓ Biomedical Entity Extraction         ↓ Inverted Index Construction         ↓ TF-IDF Weighting         ↓ Cosine Similarity Retrieval 
-
----
-
-# Evaluating the IR System
-
-## Generate Evaluation Results
-
-Create retrieval outputs for manual judging:
-
-bash python3 evaluate_retrieval.py 
-
-This creates:
-
-text retrieval_results_for_judging.csv 
-
-Manually assign relevance scores:
-
-text 0 = not relevant 1 = somewhat relevant 2 = highly relevant 
-
----
-
-## Compute Metrics
+BM25 is a probabilistic retrieval model that improves ranking quality by accounting for document length normalization and term frequency saturation.
 
 Run:
 
-bash python3 compute_metrics.py 
-
-Metrics include:
-
-- Precision@10
-- MAP (Mean Average Precision)
-- NDCG@10
+```bash
+python bm25_search.py
+```
 
 ---
 
-## Optionally, can run LLM based evaluation
+### Query Expansion
 
-Run: 
+Expands user queries with related biomedical terminology to improve retrieval recall.
 
-bash python3 pubmedbert_llm_evaluation.py
+Run:
 
-# Research Focus
-
-This project explores biomedical information retrieval and symptom-oriented document search using classical IR techniques enhanced with biomedical NLP preprocessing.
-
-The project is inspired by retrieval-based medical decision support systems such as CliniqIR and investigates how biomedical entity extraction can improve symptom-based medical literature retrieval.
+```bash
+python query_expansion.py
+```
 
 ---
 
-# Future Improvements
+### Expanded Search
+
+Combines query expansion with retrieval models to improve biomedical document discovery.
+
+Run:
+
+```bash
+python expanded_search.py
+```
+
+---
+
+## Example Queries
+
+```text
+shortness of breath
+
+persistent cough wheezing
+
+pulmonary fibrosis chest tightness
+
+asthma inflammation
+
+copd chronic bronchitis
+```
+
+---
+
+## Biomedical Entity Extraction
+
+The system uses scispaCy biomedical entity extraction to preserve important medical concepts during indexing and retrieval.
+
+Example transformations:
+
+```text
+shortness of breath
+→ ENTITY_shortness_breath
+
+pulmonary fibrosis
+→ ENTITY_pulmonary_fibrosis
+
+chronic obstructive pulmonary disease
+→ ENTITY_chronic_obstructive_pulmonary_disease
+```
+
+This helps maintain the meaning of multi-word biomedical concepts and improves retrieval quality.
+
+---
+
+## Retrieval Pipeline
+
+```text
+PubMed Documents
+        ↓
+Preprocessing
+        ↓
+Tokenization
+        ↓
+Stop-word Removal
+        ↓
+Biomedical Entity Extraction
+        ↓
+Inverted Index Construction
+        ↓
+TF-IDF Index
+        ↓
+BM25 Index
+        ↓
+Query Expansion
+        ↓
+Document Retrieval
+        ↓
+Ranking
+        ↓
+Evaluation
+```
+
+---
+
+## Evaluating the Retrieval System
+
+### Generate Retrieval Results
+
+Create ranked retrieval outputs for relevance assessment:
+
+```bash
+python evaluate_retrieval.py
+```
+
+Output:
+
+```text
+retrieval_results_for_judging.csv
+```
+
+---
+
+### Manual Relevance Judgments
+
+Assign relevance labels:
+
+```text
+0 = Not Relevant
+1 = Somewhat Relevant
+2 = Highly Relevant
+```
+
+---
+
+### Compute Retrieval Metrics
+
+Run:
+
+```bash
+python compute_metrics.py
+```
+
+Metrics:
+
+* Precision@10
+* Mean Average Precision (MAP)
+* NDCG@10
+
+---
+
+## Semantic Evaluation with PubMedBERT
+
+The project also supports semantic relevance evaluation using PubMedBERT.
+
+Run:
+
+```bash
+python pubmedbert_llm_evaluation.py
+```
+
+Output:
+
+```text
+llm_assisted_evaluation_results.csv
+```
+
+Semantic evaluation helps assess retrieval quality beyond exact keyword matching by considering biomedical context and meaning.
+
+---
+
+## Technologies Used
+
+* Python
+* NLTK
+* scispaCy
+* PubMed API
+* NumPy
+* Pandas
+* TF-IDF
+* BM25
+* Inverted Indexing
+* Cosine Similarity
+* Biomedical NLP
+* Information Retrieval
+* PubMedBERT
+
+---
+
+## Research Contributions
+
+This project investigates how biomedical NLP techniques can improve symptom-oriented medical literature retrieval.
+
+Research areas explored include:
+
+* Biomedical entity extraction using scispaCy
+* TF-IDF versus BM25 retrieval effectiveness
+* Query expansion for improved recall
+* Symptom-based biomedical search
+* Semantic evaluation using PubMedBERT
+* Biomedical concept preservation during indexing
+* Retrieval effectiveness in medical literature search
+
+---
+
+## Future Work
+
+Potential extensions include:
+
+* Dense vector retrieval
+* Transformer-based retrieval models
+* Retrieval-Augmented Generation (RAG)
+* Hybrid TF-IDF + Embedding retrieval
+* Clinical question answering
+* Biomedical knowledge graph integration
+* Multi-modal biomedical search
+* Advanced semantic reranking
+
+---
+
+## References
+
+1. PubMed – https://pubmed.ncbi.nlm.nih.gov/
+2. scispaCy – https://allenai.github.io/scispacy/
+3. Robertson, S., & Zaragoza, H. (2009). The Probabilistic Relevance Framework: BM25 and Beyond.
+4. Lee et al. (2020). BioBERT: A Pre-trained Biomedical Language Representation Model.
+5. Gu et al. (2021). PubMedBERT: Domain-Specific Language Models for Biomedical NLP.
