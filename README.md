@@ -185,6 +185,12 @@ Metrics include:
 
 ---
 
+## Optionally, can run LLM based evaluation
+
+Run: 
+
+bash python3 pubmedbert_llm_evaluation.py
+
 # Research Focus
 
 This project explores biomedical information retrieval and symptom-oriented document search using classical IR techniques enhanced with biomedical NLP preprocessing.
