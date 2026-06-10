@@ -57,7 +57,7 @@ text medSearch/ ├── data/ │   ├── raw/ │   └── processed/ 
 
 ## 1. Clone Repository
 
-bash git clone https://github.com/harivadana/medsearch_indexninjas cd medSearch 
+bash git clone https://github.com/harivadana/medsearch_indexninjas cd medSearch_indexninjas 
 
 ---
 
